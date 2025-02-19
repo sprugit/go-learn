@@ -181,3 +181,10 @@ func (t *DateTime) Copy() *DateTime {
 		Seconds: t.Seconds,
 	}
 }
+
+func (t *DateTime) SetToNextDay() {
+	t.IncrementDays(1)
+	t.Hours = 8
+	t.Minutes = 0
+	t.Seconds = 0
+}

@@ -10,11 +10,11 @@ import (
 type RequestFactory struct {
 }
 type Request struct {
-	Name         string
-	Languages    *Language
-	Category     int
-	Specialty    string
-	CruisePeriod int
+	Name              string
+	Languages         *Language
+	Category          int
+	Specialty         string
+	CruisePeriodHours int
 }
 
 // Dummy method to  mock static factory
@@ -35,11 +35,11 @@ func (RequestFactory) FromString(requestline string) (req intfc.IMarshable, err 
 		return
 	}
 	req = &Request{
-		Name:         requestArgs[0],
-		Languages:    language,
-		Category:     category,
-		Specialty:    requestArgs[3],
-		CruisePeriod: period,
+		Name:              requestArgs[0],
+		Languages:         language,
+		Category:          category,
+		Specialty:         requestArgs[3],
+		CruisePeriodHours: period,
 	}
 	return
 }
@@ -51,12 +51,12 @@ func (RequestFactory) GetTypeName() string {
 
 // Read only method
 func (r Request) ToEntry() string {
-	return fmt.Sprintf("%s, (%s), %d, %s, %d",
+	return fmt.Sprintf("%s, %s, %d, %s, %d",
 		r.Name,
 		r.Languages.ToEntryFormat(),
 		r.Category,
 		r.Specialty,
-		r.CruisePeriod)
+		r.CruisePeriodHours)
 }
 
 func (this Request) Equals(other Request) bool {
@@ -64,5 +64,5 @@ func (this Request) Equals(other Request) bool {
 		this.Languages.Equals(*other.Languages) &&
 		this.Category == other.Category &&
 		this.Specialty == other.Specialty &&
-		this.CruisePeriod == other.CruisePeriod
+		this.CruisePeriodHours == other.CruisePeriodHours
 }

@@ -21,9 +21,9 @@ func TestReadCorrectRequestsFile(t *testing.T) {
 		Languages: &model.Language{
 			Languages: []string{"english", "russian"},
 		},
-		Category:     2,
-		Specialty:    "price",
-		CruisePeriod: 2,
+		Category:          2,
+		Specialty:         "price",
+		CruisePeriodHours: 2,
 	}
 
 	reqs, err := io.ReadFile(pathToTestFile)
@@ -114,11 +114,11 @@ func TestReadCorrectScheduleFile(t *testing.T) {
 	datetime, _ := model.DateTimeFromString(date[0], date[1])
 
 	var expected = model.Entry{
-		Timestamp:   datetime,
-		Duration:    2,
-		SkipperName: "Jorge Costa",
-		Cost:        160,
-		RequestName: "Ehrard Hinrichs",
+		Timestamp:       datetime,
+		DurationInHours: 2,
+		SkipperName:     "Jorge Costa",
+		Cost:            160,
+		RequestName:     "Ehrard Hinrichs",
 	}
 
 	schds, err := io.ReadFile(pathToTestFile)

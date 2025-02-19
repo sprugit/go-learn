@@ -21,7 +21,7 @@ type Skipper struct {
 }
 
 func (skipper Skipper) ToEntry() string {
-	return fmt.Sprintf("%s, (%s), %d*, %d, %s, %d, %d, (%s, %s)",
+	return fmt.Sprintf("%s, %s, %d*, %d, %s, %d, %d, (%s, %s)",
 		skipper.Name,
 		skipper.Language.ToEntryFormat(),
 		skipper.Category,

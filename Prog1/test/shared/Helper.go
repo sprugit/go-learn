@@ -22,23 +22,30 @@ func FindTestResource(resourcePath []string) string {
 		strings.Join(resourcePath, string(os.PathSeparator)))
 }
 
-func LoadFileContents(resourcePath []string) (string, error) {
+func LoadFileContents(resourcePath []string) ([]string, error) {
 	f, err := os.Open(FindTestResource(resourcePath))
 	if err != nil {
-		return "", err
+		return []string{}, err
 	}
-	var content string
+	var content = make([]string, 0)
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		content += scanner.Text()
+		content = append(content, strings.Trim(scanner.Text(), " "))
 	}
 	return content, nil
 }
 
 func AssertMatchFileContents(resourcePath []string, result string) (bool, error) {
-	contents, err := LoadFileContents(resourcePath)
+	expectedContents, err := LoadFileContents(resourcePath)
 	if err != nil {
 		return false, err
 	}
-	return result == contents, nil
+	resultContents := strings.Split(result, "\n")
+	for index, expectedLine := range expectedContents {
+		resultLine := strings.Trim(resultContents[index], "\n")
+		if expectedLine != resultLine {
+			return false, nil
+		}
+	}
+	return true, nil
 }

@@ -53,3 +53,7 @@ var SortSchedule = func(a model.Entry, b model.Entry) int {
 	comparison = int(a.SkipperName[0] - b.SkipperName[1])
 	return comparison
 }
+
+var SortSkippersAlphabet = func(a model.Skipper, b model.Skipper) int {
+	return int(a.Name[0]) - int(b.Name[0])
+}
